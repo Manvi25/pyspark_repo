@@ -4,7 +4,7 @@ from pyspark.sql.functions import col,datediff,expr,to_date
 
 spark = SparkSession.builder.appName('assignment 3').getOrCreate()
 
-Data =  [
+Data = [
  (1, 101, 'login', '2023-09-05 08:30:00'),
  (2, 102, 'click', '2023-09-06 12:45:00'),
  (3, 101, 'click', '2023-09-07 14:15:00'),
@@ -36,4 +36,17 @@ new_column_names = ["log_id", "user_id", "user_activity", "time_stamp"]
 #renamed columns in the dataframe
 rename_columns_df = rename_columns(df, new_column_names)
 rename_columns_df.show()
+
+# query to calculate the number of actions performed by each user in the last 7 days
+df_filter= rename_columns_df.filter(datediff(expr("date('2023-09-05')"), expr("date(timestamp)")) <= 7)
+actions_performed= df_filter.groupby("user_id").count()
+print("Number of actions performed by each user in last 7 days")
+actions_performed.show()
+
+#Convert the time stamp column to the login_date column with YYYY-MM-DD format with date type as its data type
+print("Convert the time stamp column to the login_date column with YYYY-MM-DD format with date type as its data type")
+login_date_df= rename_columns_df.select("log_id","user_id","user_activity",to_date("time_stamp")
+                                        .alias("login_date"))
+login_date_df.printSchema()
+login_date_df.show()
 
