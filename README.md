@@ -1,3 +1,11 @@
+I have solved various pyspark problems, categorizing them neatly into individual directories. Each assignment its own folder with two distinct files:
+
+1. `src`: This folder acts as the primary directory for organizing code files.
+2. `utils.py`: This file contains reusable utility functions for  specific assignments. 
+3. `driver.py`: Serving as a demonstration, this file showcases the utilization of utility functions from `utils.py`.
+
+Additionally, there's a `test` folder for implementing unit testing for each assignmnent.
+
 ### **Question_1**
 1. imported necessary modules and establishing a SparkSession for Spark interaction.
 2. Define schemas for the purchase and product data, and create corresponding DataFrames.
